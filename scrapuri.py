@@ -9,14 +9,11 @@ def readpage(page):
 #returns the problem ids from the profile page
 def numberseparator(tt):
     ll = []
-    while tt.find('<tr class="par">') != -1 or tt.find('<tr class="impar">') != -1:
-        if tt.find('<tr class="par">')<tt.find('<tr class="impar">'):
-            tt = tt[tt.find('<tr class="par">')+86:]
-        else:
-            tt = tt[tt.find('<tr class="impar">')+88:]
-            if tt[:4].isdigit():
-                if tt[:4] not in ll:
-                    ll.append(tt[:4])
+    while tt.find('<a href="/judge/pt/problems/view/') != -1:
+        q = tt.find('<a href="/judge/pt/problems/view/') + 33
+        if tt[q:q+4] not in ll:
+            ll.append(tt[q:q+4])
+        tt = tt[q:]
     return ll
 #return list of all problems with various status
 def listall(ll):
@@ -79,7 +76,7 @@ def main():
         page = "https://www.urionlinejudge.com.br/judge/pt/profile/"+minhahash+"?page=" + str(i)
         tt = readpage(page)
         ll = ll + numberseparator(tt)
-    
+
     buffer = listall(ll)
     
     #generates csv file
