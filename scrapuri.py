@@ -72,11 +72,13 @@ def main():
     ll = []
     #Entre com a hash do seu Usuário
     minhahash = "211459"
-    for i in range(1,20):
-        page = "https://www.urionlinejudge.com.br/judge/pt/profile/"+minhahash+"?page=" + str(i)
+    i = 1
+    while True:
+        page = "https://www.urionlinejudge.com.br/judge/pt/profile/"+minhahash+"?page=" + str(i) + "&sort=Ranks.problem_id&direction=asc"
         tt = readpage(page)
+        if tt == " ": break
         ll = ll + numberseparator(tt)
-
+        i +=1
     buffer = listall(ll)
     
     #generates csv file
